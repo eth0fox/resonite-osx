@@ -32,19 +32,22 @@ try {
             return TryAssembly(name);
         })
     );
+    
 
     HarmonyPatches.Patch();
     
     string[] forceLoadAssemblies = [
         "FrooxEngine.Store",
-        "PhotonDust",
+        "ProtoFlux.Core",
         "ProtoFlux.Nodes.Core",
         "ProtoFlux.Nodes.FrooxEngine",
         "ProtoFluxBindings",
+        "Awwdio",
+        "PhotonDust",
         "NYoutubeDL",
         "YellowDogMan.Cloudtoid.Interprocess",
         "Steamworks.NET"
-    ];
+    ];  
     foreach (string assem in forceLoadAssemblies) 
         if (TryAssembly(assem) is null) throw new FileNotFoundException("Couldn't load assembly " + assem);
 
