@@ -1,9 +1,15 @@
 ﻿
 using System.Reflection;
+using System.Runtime.InteropServices;
 using FrooxEngine;
 using HarmonyLib;
 using Renderite.Shared;
 using ResoniteOSXRunner;
+using Veldrid.MetalBindings;
+using NSArray = ResoniteOSXRunner.NSArray;
+
+NativeLibrary.Load("/System/Library/Frameworks/AppKit.framework/AppKit");
+
 
 try {
     string FROOXENGINE_PATH = Environment.GetEnvironmentVariable("FROOXENGINE_PATH");
@@ -32,7 +38,7 @@ try {
             return TryAssembly(name);
         })
     );
-    
+   
 
     HarmonyPatches.Patch();
     

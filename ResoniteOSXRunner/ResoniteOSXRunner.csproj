@@ -33,6 +33,7 @@
     <ItemGroup>
       <PackageReference Include="Lib.Harmony" Version="2.4.2" />
       <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="11.0.0-preview.4.26230.115" />
+      <PackageReference Include="ppy.Veldrid.MetalBindings" Version="4.9.76-g3cdad6c06a" />
     </ItemGroup>
 
 </Project>

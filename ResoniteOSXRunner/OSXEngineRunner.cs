@@ -10,6 +10,7 @@ namespace ResoniteOSXRunner;
 public class OSXEngineRunner {
     public static async Task RunFrooxEngine (string[] args) {
         
+
         var launchOptions = LaunchOptions.GetLaunchOptions(args);
         launchOptions.OutputDevice = HeadOutputDevice.Screen;
         launchOptions.DataDirectory ??= StandaloneFrooxEngineRunner.DefaultDataDirectory;
@@ -27,6 +28,8 @@ public class OSXEngineRunner {
             Process.GetCurrentProcess().Kill();
         };
         
+        
+        
         await engine.Initialize(
             StandaloneFrooxEngineRunner.AssemblyDirectory,
             true,
@@ -34,6 +37,8 @@ public class OSXEngineRunner {
             systemInfo,
             new ConsoleEngineInitProgress()
         );
+        engine.InputInterface.RegisterClipboardInterface(new OSXClipboardInterface());
+        
         Console.WriteLine("Configuring Userspace...");
         Userspace.SetupUserspace(engine);
         
