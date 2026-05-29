@@ -1,11 +1,19 @@
 #!/bin/zsh
 set -exo pipefail
 SCRIPT_PATH=$(realpath "$(dirname "$0")")
+declare -a EXTRA_LAUNCH_ARGS=("$@")
+
+
 
 # You might need to change these!
 export FROOXENGINE_PATH="$SCRIPT_PATH/resonite"
 export NATIVES_PATH="$SCRIPT_PATH/binaries"
 export RENDERIDE_PATH="$SCRIPT_PATH/renderide/target/dev-fast/renderide-renderer"
+
+EXTRA_LAUNCH_ARGS+=-forcealtaudio # Force use of SoundFlow audio driver. Seems to work (at least for a bit) on macOS where NAudio doesn't at all.
+EXTRA_LAUNCH_ARGS+=-donotautoloadhome # Don't automatically open the cloud home. Makes launching a bit faster and less resource intensive.
+
+
 
 
 # You shouldn't need to change these!
@@ -26,8 +34,9 @@ function on_exit {
 trap on_exit EXIT
 cleanup
 
-dotnet run --project ./ResoniteOSXRunner -- \
+
+
+dotnet run --project ./ResoniteOSXRunner -- ${EXTRA_LAUNCH_ARGS[@]} \
 	-shmprefix $QUEUE_NAME \
-	-rendererpath $(realpath "$(dirname "$0")/renderide_wrapper.sh") \
-	-forcealtaudio \
-	-donotautoloadhome
+	-rendererpath $(realpath "$(dirname "$0")/renderide_wrapper.sh") 
+	
