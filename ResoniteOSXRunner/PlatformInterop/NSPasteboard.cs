@@ -6,6 +6,7 @@ namespace ResoniteOSXRunner;
 public struct NSPasteboard {
     public static NSString NSPasteboardTypeString = NSString.New("public.utf8-plain-text");
     public static NSString NSPasteboardTypePng = NSString.New("public.png");
+    public static NSString NSPasteboardTypeTiff = NSString.New("public.tiff");
     public static NSString NSPasteboardTypeFileUrl = NSString.New("public.file-url");
     public static NSString NSPasteboardURLReadingFileURLsOnlyKey =
         NSString.New("NSPasteboardURLReadingFileURLsOnlyKey");
@@ -48,6 +49,17 @@ public struct NSPasteboard {
         if (handle == IntPtr.Zero) return null;
         return new NSArray(handle); 
     }
+
+    public NSData? dataForType(NSString type) {
+        var handle = ObjectiveCRuntime.IntPtr_objc_msgSend(NativePtr, sel_dataForType, type);
+        if (handle == IntPtr.Zero) return null;
+        return new NSData(handle);
+    }
+    
+    
+    public bool setDataForType(NSData data, NSString type) {
+        return ObjectiveCRuntime.bool_objc_msgSend(NativePtr, sel_setData_forType, data, type);
+    }
     
     public NSArray? pasteboardItems {
         get {
@@ -66,6 +78,8 @@ public struct NSPasteboard {
     private static readonly Selector sel_clearContents= "clearContents";
     private static readonly Selector sel_pasteboardItems= "pasteboardItems";
     private static readonly Selector sel_readObjectsForClasses_options= "readObjectsForClasses:options:";
+    private static readonly Selector sel_dataForType= "dataForType:";
+    private static readonly Selector sel_setData_forType= "setData:forType:";
 }
 
 

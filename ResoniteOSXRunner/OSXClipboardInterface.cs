@@ -54,14 +54,24 @@ public class OSXClipboardInterface  : IClipboardInterface, IDisposable {
         return Task.FromResult(list);
     }
     public Task<Bitmap2D> GetImage () {
-            throw new NotImplementedException();
+        var img = pasteboard?.dataForType(NSPasteboard.NSPasteboardTypePng);
+        if (!img.HasValue) throw new Exception("dataForType returned null");
+        var data = img.Value.getBytes();
+        var stream = new MemoryStream(data);
+        return Task.FromResult(Bitmap2D.Load(stream, "png", false));
     }
     public Task<bool> SetText(string text) {
         pasteboard?.clearContents();
         return Task.FromResult(pasteboard?.setStringForType(NSPasteboard.NSPasteboardTypeString, text) == true);
     }
     public Task<bool> SetBitmap(Bitmap2D bitmap) {
-        throw new NotImplementedException();
+        using MemoryStream imgStream = new MemoryStream();
+        bitmap.Save(imgStream, "tiff");
+        byte[] buffer = imgStream.ToArray();
+        
+        var data = NSData.with(buffer);
+        pasteboard?.clearContents();
+        return Task.FromResult(pasteboard?.setDataForType(data, NSPasteboard.NSPasteboardTypeTiff) == true);
     }
 
     

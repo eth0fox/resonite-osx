@@ -32,5 +32,7 @@ public static class ObjectiveCRuntimeExtns {
         public static extern bool bool_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, IntPtr b);
         [DllImport("/usr/lib/libobjc.A.dylib", EntryPoint = "objc_msgSend")]
         public static extern IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, IntPtr a, IntPtr b);
+        [DllImport(ObjCLibrary, EntryPoint = "objc_msgSend")]
+        unsafe public static extern IntPtr IntPtr_objc_msgSend(IntPtr receiver, Selector selector, void* a, UIntPtr b);
     }
 }
