@@ -21,6 +21,12 @@ export QUEUE_NAME=reso
 export RENDERIDE_INTERPROCESS_DIR="$(dirname $(getconf DARWIN_USER_DIR))/T/"
 export DYLD_LIBRARY_PATH=$NATIVES_PATH:$FROOXENGINE_PATH/runtimes/osx-arm64/native:$FROOXENGINE_PATH/runtimes/osx-universal/native:$FROOXENGINE_PATH/runtimes/osx/native:/opt/homebrew/lib
 
+# check if RML exists next to the script.
+if [ -f "$SCRIPT_PATH/ResoniteModLoader.dll" ]; then
+	EXTRA_LAUNCH_ARGS+=-loadassembly 
+	EXTRA_LAUNCH_ARGS+=$SCRIPT_PATH/ResoniteModLoader.dll
+fi
+
 
 function cleanup {
 	# clean up old SHM files

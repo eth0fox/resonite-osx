@@ -22,6 +22,13 @@ This assumes you're running on an Apple Silicon Mac. Intel Macs are not supporte
        - A copy of Renderide can be found in the `renderide/` directory next to the script, and that it is was built with with `cargo build --profile dev-fast` (thus, `/renderide/target/dev-fast/renderide-renderer` exists)
    - If this is wrong, edit the variables at the top of `run.sh` to point to the correct locations.
 
+## Installing [ResoniteModLoader](http://github.com/resonite-modding-group/ResoniteModLoader/)
+
+You should _not_ follow the steps normally used to install ResoniteModLoader. (as the runner already comes with Harmony, and uses different paths)
+
+Just download the [latest ResoniteModLoader.dll](https://github.com/resonite-modding-group/ResoniteModLoader/releases/latest/download/ResoniteModLoader.dll) and place it in the same folder as the run.sh script.
+ 
+
 ## Native libraries
 
 This repo contains a few native libraries recompiled for macOS (of questionable providence). There are some instructions in `README.natives.md`

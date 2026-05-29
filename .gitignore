@@ -4,3 +4,5 @@ obj/
 .idea
 /resonite
 /renderide
+ResoniteModLoader.dll
+*.user
