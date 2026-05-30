@@ -4,6 +4,19 @@ This repo contains scripts, patches & a custom engine runner for running Resonit
 
 This assumes you're running on an Apple Silicon Mac. Intel Macs are not supported.
 
+## What Works
+ - [x] Basic engine bring up
+ - [x] Renderer IPC
+ - [x] Renderide
+ - [ ] Audio
+    - [x] Microphone & voice transmit
+    - [ ] Audio output (partially working. Seems to die as soon as you do anything more involved than sit in local home)
+    - [ ] Hear others (see above)
+ - [ ] Platform integration
+    - [x] System info (identifies as Platform.OSX, shows correct CPU & GPU model in logs)
+    - [x] Clipboard
+    - [ ] Saving screenshots to disk doesn't seem to work
+    - [ ] Drag and drop (this would require work on Renderide side)
 
 ## You will need:
 
