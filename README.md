@@ -8,10 +8,10 @@ This assumes you're running on an Apple Silicon Mac. Intel Macs are not supporte
  - [x] Basic engine bring up
  - [x] Renderer IPC
  - [x] Renderide
- - [ ] Audio
+ - [x] Audio
     - [x] Microphone & voice transmit
-    - [ ] Audio output (partially working. Seems to die as soon as you do anything more involved than sit in local home)
-    - [ ] Hear others (see above)
+    - [x] Audio output (Ensure Audio > Playback Buffer Size is at least Medium1024. Anything else is broken on anything except Windows)
+    - [x] Hear others (see above)
  - [ ] Platform integration
     - [x] System info (identifies as Platform.OSX, shows correct CPU & GPU model in logs)
     - [x] Clipboard
