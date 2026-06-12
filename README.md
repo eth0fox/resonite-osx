@@ -12,6 +12,8 @@ This assumes you're running on an Apple Silicon Mac. Intel Macs are not supporte
     - [x] Microphone & voice transmit
     - [x] Audio output (Ensure Audio > Playback Buffer Size is at least Medium1024. Anything else is broken on anything except Windows)
     - [x] Hear others (see above)
+ - [ ] Crunch Image Compression, without this, images won't be visible to others until you go to an inspector, and ensure CrunchCompress is turned off. This also might be why a bunch of textures are really low resolution
+ 
  - [ ] Platform integration
     - [x] System info (identifies as Platform.OSX, shows correct CPU & GPU model in logs)
     - [x] Clipboard
