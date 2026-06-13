@@ -12,7 +12,9 @@ This assumes you're running on an Apple Silicon Mac. Intel Macs are not supporte
     - [x] Microphone & voice transmit
     - [x] Audio output (Ensure Audio > Playback Buffer Size is at least Medium1024. Anything else is broken on anything except Windows)
     - [x] Hear others (see above)
- - [ ] Crunch Image Compression, without this, images won't be visible to others until you go to an inspector, and ensure CrunchCompress is turned off. This also might be why a bunch of textures are really low resolution
+ - [ ] Texture loading
+    - It mostly works, however you will see a lot of textures which load low resolution. This is because Resonite loads different texture variants on Windows & Linux vs Android. If you are neither Windows, Linux or Android it loads RawRGBA textures which apparently don't exist for some textures.
+    - Also, crunch compression is missing.
  
  - [ ] Platform integration
     - [x] System info (identifies as Platform.OSX, shows correct CPU & GPU model in logs)
