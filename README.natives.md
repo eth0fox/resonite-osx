@@ -35,6 +35,7 @@ FWIW: A lot of libraries are common, and may already be installed via Homebrew. 
  - [x] **Microsoft.Extensions.ObjectPool**: Grab 6.0.36 from NuGet.
  - [x] **Discord Game SDK**: https://discord.com/developers/docs/developer-tools/game-sdk
  - [x] **Steamworks.NET**: (just needs to be rebuilt targeting arm64, or grab from this repo)
+ - [ ] **Crunch** - i tried (https://github.com/eth0fox/ydms-crunch) but it doesnt seem to work properly
  - [ ] **FreeImage**: (you can get from Homebrew for the time being)
  - [ ] **FreeType**: (you can get from this repo for the time being)
  - [ ] **pdfium**: (i didn't bother - its not really needed)
