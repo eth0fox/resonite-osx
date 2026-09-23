@@ -22,7 +22,16 @@ public class OSXEngineRunner {
         Console.WriteLine("Initializing FrooxEngine...");
         
         var shutdownComplete = false;
-        engine.EnvironmentShutdownCallback = () => shutdownComplete = true;
+        engine.EnvironmentShutdownCallback = () => {
+            shutdownComplete = true;
+            try {
+                engine.RenderSystem.ShutdownRenderer();
+            }
+            catch (Exception e) {
+                Console.WriteLine("Failed to shutdown renderer: " + e);
+            }
+
+        };
         engine.EnvironmentCrashCallback = () => {
             Console.Error.WriteLine("EnvironmentCrashCallback called! Exiting immediately");
             Process.GetCurrentProcess().Kill();
@@ -59,18 +68,28 @@ public class OSXEngineRunner {
         };
         var updateLoop = new Thread(
             () => {
+                
                 var stopwatch = Stopwatch.StartNew();
+                
+                engine.InitializeUpdateLoop();
                 var frameBudget = Stopwatch.Frequency / 60;
                 var tickMS = Stopwatch.Frequency / 1000;
                 long ldt = 0;
+                var frames = new long[100];
+                var frameI = 0;
                 while (!shutdownComplete) {
                     engine.RunUpdateLoop();
                     systemInfo.FrameFinished();
-                    // engine.PerfStats.Update(systemInfo);
                     if (ShutdownRequested)
                         Userspace.ExitApp(false);
-                    // var time = stopwatch.ElapsedTicks - ldt;
-                    // stopwatch.Restart();
+                    var time = stopwatch.ElapsedTicks - ldt;
+                    var wrapped = frameI % frames.Length;
+                    frames[wrapped] = time;
+                    if (wrapped == 0) {
+                        Console.WriteLine("Average engine frame rate: " + (Stopwatch.Frequency / frames.Average()));
+                    } 
+                    frameI++;
+                    stopwatch.Restart();
                     // var delay =  frameBudget - time;
                     // if (delay <= 0) {
                     //     Console.WriteLine($"Last frame was over budget by {-delay} ticks! (budget {frameBudget}, ~{-delay / tickMS}ms)");

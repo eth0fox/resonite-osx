@@ -61,6 +61,7 @@ try {
     if (!Directory.Exists("Renderer")) Directory.CreateDirectory("Renderer");
     await OSXEngineRunner.RunFrooxEngine(args);
     
+    Environment.Exit(0);
 
 
 

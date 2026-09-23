@@ -4,8 +4,6 @@ namespace ResoniteOSXRunner;
 
 class OSXSystemInfo : StandaloneSystemInfo {
     
-    
-    public float RenderTime => 0.0f;
     public OSXSystemInfo () {
         if (System.OperatingSystem.IsMacOS()) {
             Platform = Platform.OSX;
