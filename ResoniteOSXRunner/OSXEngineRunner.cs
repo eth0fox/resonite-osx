@@ -71,6 +71,11 @@ public class OSXEngineRunner {
                 ShutdownRequested = true;
             }
         };
+        
+        
+        // this is only used for performance metrics - we use a custom ISystemInfo for the real SystemInfo as we need
+        // to override some fields that we can't do by just subclassing StandaloneSystemInfo.
+        var standaloneSystemInfo = new StandaloneSystemInfo();
         var updateLoop = new Thread(
             () => {
                 
@@ -84,7 +89,8 @@ public class OSXEngineRunner {
                 var frameI = 0;
                 while (!shutdownComplete) {
                     engine.RunUpdateLoop();
-                    systemInfo.FrameFinished();
+                    standaloneSystemInfo.FrameFinished();
+                    engine.PerfStats.Update(standaloneSystemInfo);
                     if (ShutdownRequested)
                         Userspace.ExitApp(false);
                     var time = stopwatch.ElapsedTicks - ldt;
@@ -95,16 +101,6 @@ public class OSXEngineRunner {
                     } 
                     frameI++;
                     stopwatch.Restart();
-                    // var delay =  frameBudget - time;
-                    // if (delay <= 0) {
-                    //     Console.WriteLine($"Last frame was over budget by {-delay} ticks! (budget {frameBudget}, ~{-delay / tickMS}ms)");
-                    //     ldt = 0;
-                    // }
-                    // else {
-                    //     ldt = delay;
-                    //     var ms = (int)(ldt / tickMS);
-                    //     //Thread.Sleep(ms);
-                    // }
                 }
 
             });
