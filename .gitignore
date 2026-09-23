@@ -1,6 +1,9 @@
 .DS_Store
 bin/
 obj/
+.DepotDownloader
+Renderer
+/rml_mods
 .idea
 /resonite
 /renderide
