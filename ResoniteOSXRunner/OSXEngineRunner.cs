@@ -31,6 +31,11 @@ public class OSXEngineRunner {
                 Console.WriteLine("Failed to shutdown renderer: " + e);
             }
 
+            Task.Delay(10000).ContinueWith(_ => {
+                    Console.WriteLine("Process is still alive 10 seconds after shutdown. Forcefully exiting...");
+                    Environment.Exit(0); 
+                }
+            );
         };
         engine.EnvironmentCrashCallback = () => {
             Console.Error.WriteLine("EnvironmentCrashCallback called! Exiting immediately");
