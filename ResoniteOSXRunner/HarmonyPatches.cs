@@ -46,3 +46,16 @@ class ShaderPlatformPatch {
         return false;
     }
 }
+
+
+
+
+// Enable assembly metadata caching. By default, this is only enabled on Windows & Linux. Hopefully speeds up launch?
+[HarmonyPatch(typeof(Engine), "AssemblyMetadataRoot", MethodType.Getter)]
+class AssemblyMetadataRootPatch {
+    static bool Prefix(ref string __result, ref Engine __instance) {
+        __result = Path.Combine(__instance.AppPath, "RuntimeData", "AssemblyMetadata");
+        return false;
+    }
+}
+
