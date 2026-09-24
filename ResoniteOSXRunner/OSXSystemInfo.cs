@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Elements.Assets;
 using FrooxEngine;
 
 namespace ResoniteOSXRunner;
@@ -31,9 +32,25 @@ class OSXSystemInfo : ISystemInfo {
         } catch(Exception e) {}     
         
     }
-
-    public Platform Platform => Platform.OSX;
+    
     public Architecture Architecture => RuntimeInformation.ProcessArchitecture;
+    public Platform Platform => ShouldPretendToBeLinux() ? Platform.Linux : Platform.OSX;
+    // FrooxEngine enables different texture compression methods for Windows & Linux vs. Android.
+    // problem is: macOS falls through that switch case.
+    // This _should_ be a patch, however it's patching a switch statement inside an async method in a generic class.
+    // which is a very miserable thing to do. So, we just check if we're being called from StaticTextureProvider and lie
+    private bool ShouldPretendToBeLinux () {
+        /// TODO: Profile this to see if it's worth optimising
+        StackTrace st = new StackTrace(true);
+        for(int i =0; i< st.FrameCount; i++ ) {
+            StackFrame sf = st.GetFrame(i);
+            var method = sf.GetMethod();
+            if (method.ReflectedType.Name.StartsWith("StaticTextureProvider`")) 
+                return true;
+        }
+
+        return false;
+    }
 
     public string UniqueDeviceIdentifier => null;
     public bool IsAOT => false;
