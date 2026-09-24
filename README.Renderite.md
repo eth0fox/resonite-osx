@@ -33,3 +33,10 @@ particular:
 
   Copy `renderite_binaries/Renderite.Unity.dll` to
   `resonite/Renderer/Renderite.Renderer_Data/Managed`.
+
+- The script assumes you have installed CrossOver to the default
+  locations and have a bottle called "Resonite" with DXMT. **DXMT** is
+  the only working graphics engine for now!
+
+When you have installed all the DLLs, and setup the bottle, simply run
+`./run-renderite.sh` to bootstrap the engine and launch the renderer.
