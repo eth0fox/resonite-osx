@@ -2,7 +2,13 @@
 
 This repo contains scripts, patches & a custom engine runner for running Resonite on macOS using the Renderide renderer.
 
-This assumes you're running on an Apple Silicon Mac. Intel Macs are not supported.
+This assumes you're running on an Apple Silicon Mac. Intel Macs are not supported. Apparently, macOS Sequoia also works best. I have heard of issues on macOS Tahoe & Golden Gate. 
+
+**Current status:** It works, but:
+ - You will encounter many graphical issues due to Renderide not having full parity with the Unity renderer.
+ - It is very CPU & GPU intensive.
+  - GPU load is often due to Renderide running at the full resolution of the display. On a 14" MBP with "More space" scaling, it is about 8.5MPix (for comparison: 4K is about 8.3MPix)
+  - The IPC mechanism is not optimised for macOS, so there is a lot of CPU time spent just spinning for no reason.
 
 ## What Works
  - [x] Basic engine bring up
@@ -12,11 +18,15 @@ This assumes you're running on an Apple Silicon Mac. Intel Macs are not supporte
     - [x] Microphone & voice transmit
     - [x] Audio output (Ensure Audio > Playback Buffer Size is at least Medium1024. Anything else is broken on anything except Windows)
     - [x] Hear others (see above)
+ - [x] Texture loading
+    - [x] Crunch decompression. (compression should be working - need to test if other people can see your screenshots)
  - [ ] Platform integration
     - [x] System info (identifies as Platform.OSX, shows correct CPU & GPU model in logs)
     - [x] Clipboard
     - [ ] Saving screenshots to disk doesn't seem to work
     - [ ] Drag and drop (this would require work on Renderide side)
+
+
 
 ## You will need:
 
