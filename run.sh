@@ -54,9 +54,10 @@ trap on_exit EXIT
 cleanup
 
 
+dotnet build ./ResoniteOSXRunner
 
-#dotnet run --project ./ResoniteOSXRunner -- 
-TMPDIR=$RENDERIDE_INTERPROCESS_DIR /Users/foxt/dev/resonite-osx-git/ResoniteOSXRunner/bin/Debug/net10.0/ResoniteOSXRunner ${EXTRA_LAUNCH_ARGS[@]} \
+
+TMPDIR=$RENDERIDE_INTERPROCESS_DIR ./ResoniteOSXRunner/bin/Debug/net10.0/ResoniteOSXRunner ${EXTRA_LAUNCH_ARGS[@]} \
 	-shmprefix $QUEUE_NAME \
 	-rendererpath $(realpath "$(dirname "$0")/renderide_wrapper.sh") 
 	
