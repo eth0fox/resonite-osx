@@ -3,7 +3,7 @@ bin/
 obj/
 .DepotDownloader
 Renderer
-/rml_mods
+/rml_*
 .idea
 /resonite
 /renderide

@@ -30,10 +30,12 @@ This assumes you're running on an Apple Silicon Mac. Intel Macs are not supporte
 0. Despite the precompiled binaries in `binaries/` I was too lazy to recompile FreeType. Install using Brew: `brew install freetype`
 1. Clone this repo
 2. Run `./run.sh`
+   - Alternatively, you can use: `USE_TMPFS=1 ./run.sh` to use a tmpfs to store the IPC files (like on Linux). This requires root, and seems to have stability problems. And by that I mean 'crash your entire computer' stability issues, not just Resonite crashing.
    - This will expect that:
        - A copy of Resonite can be found in the `resonite/` directory next to the script.
        - A copy of Renderide can be found in the `renderide/` directory next to the script, and that it is was built with with `cargo build --profile dev-fast` (thus, `/renderide/target/dev-fast/renderide-renderer` exists)
    - If this is wrong, edit the variables at the top of `run.sh` to point to the correct locations.
+
 
 ## Installing [ResoniteModLoader](http://github.com/resonite-modding-group/ResoniteModLoader/)
 
