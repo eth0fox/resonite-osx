@@ -51,7 +51,8 @@ cleanup
 
 
 
-dotnet run --project ./ResoniteOSXRunner -- ${EXTRA_LAUNCH_ARGS[@]} \
+TMPDIR=$RENDERIDE_INTERPROCESS_DIR ./ResoniteOSXRunner/bin/Debug/net10.0/ResoniteOSXRunner ${EXTRA_LAUNCH_ARGS[@]} \
 	-shmprefix $QUEUE_NAME \
-	-rendererpath $(realpath "$(dirname "$0")/renderite_wrapper.sh")
+	-rendererpath $(realpath "$(dirname "$0")/renderite_wrapper.sh") 
+	
 	

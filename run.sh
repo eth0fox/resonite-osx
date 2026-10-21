@@ -44,7 +44,7 @@ fi
 
 function cleanup {
 	# clean up old SHM files
-	rm -rf $RENDERIDE_INTERPROCESS_DIR/$QUEUE_NAME* || true;
+	rm -rf "$RENDERIDE_INTERPROCESS_DIR/$QUEUE_NAME"* || true;
 }
 function on_exit {
 	cleanup
@@ -52,6 +52,7 @@ function on_exit {
 }
 
 trap on_exit EXIT
+trap on_exit INT
 cleanup
 
 
