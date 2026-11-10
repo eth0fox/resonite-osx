@@ -29,11 +29,25 @@ export RENDERIDE_INTERPROCESS_DIR="$TMPDIR"
 export DYLD_LIBRARY_PATH=$NATIVES_PATH:$FROOXENGINE_PATH/runtimes/osx-arm64/native:$FROOXENGINE_PATH/runtimes/osx-universal/native:$FROOXENGINE_PATH/runtimes/osx/native:/opt/homebrew/lib
 export OPENLIPSYNC_MODEL_PATH=$FROOXENGINE_PATH/RuntimeData/OpenLipSync
 
+
+if [ "${USE_TMPFS:-0}" = "1" ]; then
+
+	# Check to see if we've already got a mount at $TMPDIR
+	tmpfs_folder=$TMPDIR
+	if ! mount | grep -q $tmpfs_folder; then
+		sudo mkdir -p $tmpfs_folder
+		sudo mount_tmpfs $tmpfs_folder
+		sudo chown $(id -u):$(id -g) $tmpfs_folder
+	fi
+
+fi;
+
 # check if RML exists next to the script.
 if [ -f "$SCRIPT_PATH/ResoniteModLoader.dll" ]; then
 	EXTRA_LAUNCH_ARGS+=-loadassembly 
 	EXTRA_LAUNCH_ARGS+=$SCRIPT_PATH/ResoniteModLoader.dll
 fi
+
 
 
 function cleanup {
